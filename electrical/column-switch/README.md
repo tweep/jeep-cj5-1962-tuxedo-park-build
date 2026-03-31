@@ -9,6 +9,7 @@ behind it.
 
 ## Photos
 
+- `American Motors - US105.png` — US105 ignition switch reference diagram
 - `switch-connector-face.jpg` — connector face showing pin labels
 - `switch-connector-annotated.jpg` — annotated pin layout
 - `switch-installed.jpg` — switch installed on column with wiring
