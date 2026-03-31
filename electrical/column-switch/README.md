@@ -7,57 +7,84 @@ mounts to the steering column and is actuated by the ignition lock cylinder
 via a rod. It is not the lock cylinder itself — it is the electrical switch
 behind it.
 
+<p align="center">
+  <img src="American%20Motors%20-%20US105.png" alt="US105 ignition switch reference" width="600"/>
+</p>
+
+In this build the column switch is **not used**. The ignition switch has been
+relocated to the dash (Standard Ignition US105). The column switch connector
+is disconnected. The start function is handled by a dash-mounted push button
+connected directly to the starter solenoid S terminal. This document covers
+the column switch for reference and in case of future re-integration.
+
 ## Photos
 
-- `American Motors - US105.png` — US105 ignition switch reference diagram
-- `switch-connector-face.jpg` — connector face showing pin labels
-- `switch-connector-annotated.jpg` — annotated pin layout
-- `switch-installed.jpg` — switch installed on column with wiring
-- `pigtail-pico5659.jpg` — Pico 5659 pigtail connector reference
+![Switch connector face](switch-connector-face.jpg)
+![Annotated pin diagram](annotated-pic.png)
+![Pico 5659 connector reference](connectors-pico.png)
+![Switch installed on column](switch-installed.jpg)
 
-## Pin-Out
+## Connector Format
 
-8x 0.25" (1/4") male blade terminals plus one 0.31" (5/16") terminal (I-3).
+8x 0.25" (1/4") male blade terminals. One exception: I-3 uses a 0.31" (5/16")
+male blade terminal. All other pins are 1/4".
 
-| Pin | Always-On | ACC | IGN/RUN | CRANK | Notes |
-|-----|-----------|-----|---------|-------|-------|
-| B-1 | ✓ | | | | Battery supply. B1 and B2 are internally jumped |
-| B-2 | ✓ | | | | Battery supply. Jumped to B1, allows higher current via two wires |
-| B-3 | ✓ | | | | Battery supply via separate circuit from B1/B2 |
-| A   | | ✓ | ✓ | | Accessory — radio, wipers. Live in ACC and RUN |
-| I-1 | | | ✓ | ✓ | IGN 1 — ignition devices, live in RUN and CRANK |
-| I-3 | | ✓ | ✓ | | IGN 3 — HVAC/heater blower. 5/16" terminal. Powered from B3 only |
-| S   | | | | ✓ | Starter solenoid trigger. Live in CRANK only |
-| G-1 | | | | ✓ | Grounds to bracket in CRANK only — bulb check for oil pressure light |
-| G-2 | | | | ✓ | Grounds to bracket in CRANK only — bulb check for temp light |
+## Pin-Out and Contact States
 
-**G-1 and G-2 note:** Only use if running warning lights (bulbs). Do not use
-if running gauges — these ground the warning light circuits for bulb check
-during crank only.
+B-1 and B-2 are internally jumped inside the switch — they are the same
+electrical point. Using both allows higher current capacity by splitting the
+load across two wires. B-1/B-2 supply I-1, A, and S. B-3 is a separate
+battery supply circuit and powers I-3 only.
 
-## Key Position Summary
+Position 0 is ACC — hard to reach, requires key pressed in to release steering
+column lock. Positions 1 (LOCK) and 2 (OFF) are electrically identical —
+mechanically different (column locks in position 1, key removable) but same
+contact state. Position 4 (START) is momentary — spring-loaded, returns to
+position 3 when pressure is released. Position 4 is not used in this build as
+the start function is handled by the dash-mounted push button.
 
-| Position | Active Pins |
-|----------|-------------|
-| OFF      | B1, B2, B3 only (always hot, no outputs) |
-| ACC      | A, I-3 |
-| RUN      | A, I-1, I-3 |
-| CRANK    | I-1, S, G-1, G-2 |
+| Pin | 0 (ACC) | 1 (LOCK) | 2 (OFF) | 3 (RUN) | 4 (START) |
+|-----|---------|----------|---------|---------|-----------|
+| B-1 | on | on | on | on | on |
+| B-2 | on | on | on | on | on |
+| B-3 | on | on | on | on | on |
+| A   | on | | | on | |
+| I-1 | | | | on | on |
+| I-3 | | | | on | |
+| S   | | | | | on |
+| G-1 | | | | | gnd |
+| G-2 | | | | | gnd |
 
-## Integration With Relay System
+Contact states verified by measurement on this switch.
 
-In this build the column switch is **not used** for ignition. The ignition
-switch relocated to dash is Standard Ignition US105. The column switch
-connector is disconnected.
+**A — Accessory:** Hot in position 0 (ACC) and position 3 (RUN). Powers radio,
+wipers, and accessories.
 
-If re-integrating the column switch in future:
-- B1/B2 → battery positive (fused)
-- B3 → battery positive (separate fused circuit if running HVAC)
+**I-1 — IGN 1:** Hot in position 3 (RUN) and position 4 (START). In a stock GM
+system goes to coil positive. Not used in this build — ignition trigger is
+handled by the IGN/RUN relay fed from the dash-mounted US105 switch.
+
+**I-3 — IGN 3:** Hot in position 3 (RUN) only. Typically feeds HVAC blower.
+Uses 5/16" terminal — larger than all other pins. Powered from B-3 only. Not
+used in this build.
+
+**S — Starter solenoid trigger:** Hot in position 4 (START) only. Triggers the
+starter solenoid S terminal — same function as the dash-mounted start button.
+Not used in this build.
+
+**G-1 / G-2:** Ground to bracket in position 4 (START) only. Used for oil
+pressure and coolant temp warning bulb check during cranking. Not used in this
+build — no warning bulb circuits installed.
+
+## Integration With Relay System (if re-connecting)
+
+- B-1/B-2 → battery positive (fused, 14 AWG fusible link)
+- B-3 → battery positive (separate fused circuit, 14 AWG fusible link)
 - A → ACC relay coil trigger (pin 86)
 - I-1 → IGN/RUN relay coil trigger (pin 86)
-- S → starter solenoid S terminal (if using column switch for start)
+- S → starter solenoid S terminal (replaces dash start button)
 - I-3 → HVAC blower if installed
-- G1/G2 → leave unconnected (no warning bulb circuits on this build)
+- G-1/G-2 → leave unconnected (no warning bulb circuits on this build)
 
 ## Connector / Pigtail
 
@@ -73,8 +100,8 @@ connector covers the remaining terminals.
 
 ## Fusible Links
 
-GM factory practice uses 14 AWG fusible links on B1 and B3 feeds. If not
-running HVAC, B3 can drop to 16 AWG fusible link. Size to actual load.
+GM factory practice uses 14 AWG fusible links on B-1 and B-3 feeds. If not
+running HVAC on B-3, drop to 16 AWG. Size to actual load.
 
 ## Source
 
