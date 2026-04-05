@@ -1,5 +1,7 @@
 # Electrical System Overview
 
+See [README.md](README.md) for a topic index and quick links.
+
 ## Design Philosophy
 
 Relay-based system. The ignition switch and all dash switches carry only coil
@@ -9,10 +11,9 @@ contact wear.
 
 ## Power Distribution
 
-Single heavy feed from battery positive to starter solenoid B+ lug (main
-distribution point). Fuse box feeds from starter lug via 6 AWG wire, fused
-at 60A ANL fuse at the battery. All relay 30 pins (always-hot inputs) feed
-from battery or starter lug, fused individually at the load.
+**Starter B+ stud** is the junction: **2 AWG** to battery, **6 AWG** unfused from alternator (~160 A), **6 AWG** to **70 A** breaker **IN**; breaker **OUT** → **6 AWG** to **Blue Sea** and **10 AWG** + **10 A** to **MSD** large red—see **[fuse-box/b-plus-distribution.md](fuse-box/b-plus-distribution.md)**. All relay **30** pins (always-hot inputs) are fused per branch at the load.
+
+Relay tables and branch details: [fuse-box/circuits.md](fuse-box/circuits.md).
 
 ## Key Switch Wiring
 
@@ -25,6 +26,18 @@ Key behavior:
 - ACC position: Relay 1 energized only
 - IGN/RUN position: Relay 1 and Relay 2 both energized
 - Key off: both relays drop, all switched loads dead
+
+The GM **column** ignition switch is not used in this build (connector disconnected). Reference only: [column-switch/](column-switch/).
+
+### US105 → relay summary
+
+| Key position | ACC (pink) | IGN/RUN (purple) | Relay 1 (ACC bus) | Relay 2 (IGN bus) |
+|--------------|------------|------------------|-------------------|-------------------|
+| OFF | open | open | off | off |
+| ACC | closed | open | on | off |
+| RUN | closed | closed | on | on |
+
+Confirm switch terminal behavior with a meter on your harness; wire colors follow common US105 practice.
 
 ## Relay Layout
 
@@ -79,12 +92,12 @@ harnesses. Pin colors on installed harnesses: 30=red, 85=black, 86=white,
 
 ## MSD 6200 Integration
 
-- Main power (large red wire): battery + via starter lug, always hot
-- Small red wire (ignition input): fed from Relay 2 pin 87 (IGN/RUN output)
-- Ballast resistor: removed, not used with MSD
-- Solenoid R terminal: leave empty
+- **Main:** fused **B+** (feeder tied to the **70 A** breaker path) and chassis **ground**
+- **Magnetic pickup (red/purple):** not used — **points** distributor
+- **Small harness:** white (tach + points), red (IGN switched), black (ground), orange (coil); **no ballast resistor** — MSD drives the coil via orange
+- **Starter R terminal:** empty
 
-See [msd-6200/](msd-6200/) for full wiring details.
+See [msd-6200/](msd-6200/) for wire-by-wire details.
 
 ## Starter Circuit
 
@@ -96,21 +109,18 @@ GM-style solenoid mounted on starter.
 
 ## Alternator
 
-Powermaster 67293 (polished), CS130-style one-wire. Output wire runs to
-starter solenoid B+ lug. No external voltage regulator required.
-
-See [alternator/](alternator/) for belt sizing and installation notes.
+[Powermaster Street 67293](https://www.summitracing.com/parts/PWM-67293#overview) (~**160 A**), GM **10SI/10DN/12SI** case. **6 AWG** unfused to starter **B+**; **B+** → **70 A** breaker → [Blue Sea + MSD](fuse-box/b-plus-distribution.md). **45" V-belt** (smaller alternator pulley OD). Details: [alternator/](alternator/).
 
 ## Wire Gauges
 
 | Circuit | Gauge |
 |---------|-------|
 | Battery to starter lug | 2 AWG or larger |
-| Alternator output | 4 AWG |
+| Alternator output | 6 AWG (to starter B+ lug) |
 | Fuse box feed | 6 AWG |
 | Relay 30/87 (high current loads) | 10 AWG minimum |
 | Relay trigger/coil wiring | 18 AWG |
-| MSD small red | 18 AWG |
+| MSD small harness (white, red, black, orange) | Per MSD (often 18 AWG) |
 
 ## Grounds
 

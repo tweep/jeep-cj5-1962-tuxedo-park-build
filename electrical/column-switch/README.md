@@ -7,22 +7,19 @@ mounts to the steering column and is actuated by the ignition lock cylinder
 via a rod. It is not the lock cylinder itself — it is the electrical switch
 behind it.
 
-<p align="center">
-  <img src="American%20Motors%20-%20US105.png" alt="US105 ignition switch reference" width="600"/>
-</p>
+![US105 ignition switch reference](images/american-motors-us105.png)
 
-In this build the column switch is **not used**. The ignition switch has been
-relocated to the dash (Standard Ignition US105). The column switch connector
-is disconnected. The start function is handled by a dash-mounted push button
+In this build the **ignition** column switch is **not used**. The ignition switch has been
+relocated to the dash (Standard Ignition US105). The ignition column switch connector
+is disconnected.
+
+**Turn signal / brake / indicator** stalk wiring (stock colors vs your harness) is tracked separately: [switches-lights-relais/column-multifunction-switch.md](../switches-lights-relais/column-multifunction-switch.md). The start function is handled by a dash-mounted push button
 connected directly to the starter solenoid S terminal. This document covers
 the column switch for reference and in case of future re-integration.
 
 ## Photos
 
-![Switch connector face](switch-connector-face.jpg)
-![Annotated pin diagram](annotated-pic.png)
-![Pico 5659 connector reference](connectors-pico.png)
-![Switch installed on column](switch-installed.jpg)
+![Pico 5659 connector reference](images/annotated-pic.png)
 
 ## Connector Format
 

@@ -32,7 +32,7 @@ See [hydraulics/](hydraulics/) for full specs and plumbing notes.
 
 ## Electrical
 
-- **Alternator:** [Powermaster 67293](https://www.summitracing.com/parts/PWM-67293), polished finish
+- **Alternator:** [Powermaster Street 67293](https://www.summitracing.com/parts/PWM-67293#overview) (~160 A, GM 10SI/12SI family), 6 AWG unfused to starter B+; [electrical/fuse-box/b-plus-distribution.md](electrical/fuse-box/b-plus-distribution.md) for B+ diagram
 - **Ignition Switch:** [Standard Ignition US105](https://www.oreillyauto.com/detail/c/standard-ignition/standard-ignition-starter-switch/std0/us105) starter switch
 
 See [electrical/](electrical/) for full wiring documentation.
@@ -49,12 +49,13 @@ See [cooling/](cooling/) for specs and installation notes.
 
 ## Repository Structure
 ```
-jeep-cj5-build/
+jeep-cj5-1962-tuxedo-park-build/
   README.md
   electrical/
     overview.md          # relay architecture, power rails, wire gauge map
     ignition/
     column-switch/
+    switches-lights-relais/  # diagrams, column stalk, headlight, relay inventory
     alternator/
     msd-6200/
     fuse-box/
@@ -82,4 +83,4 @@ and decisions made.
 
 ## License
 
-CC0 1.0 Universal – No rights reserved. See LICENSE for details.ff
+CC0 1.0 Universal – No rights reserved. See LICENSE for details.
